@@ -16,5 +16,10 @@ namespace TPWinForm_Equipo20A
         {
             InitializeComponent();
         }
+
+        private void tbBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
