@@ -52,5 +52,10 @@ namespace TPWinForm_Equipo20A
             
         }
 
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Form2 ventana = new Form2();
+            ventana.ShowDialog();
+        }
     }
 }

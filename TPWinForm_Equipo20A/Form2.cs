@@ -21,5 +21,15 @@ namespace TPWinForm_Equipo20A
         {
             //convertir en titulo "Modificar" o "Agregar" dependiendo del botón que se haya presionado en el form1
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

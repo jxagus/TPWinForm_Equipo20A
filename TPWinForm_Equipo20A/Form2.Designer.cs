@@ -116,7 +116,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(156, 163);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(108, 21);
+            this.comboBox1.Size = new System.Drawing.Size(200, 21);
             this.comboBox1.TabIndex = 7;
             // 
             // comboBox2
@@ -124,57 +124,58 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(156, 191);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(108, 21);
+            this.comboBox2.Size = new System.Drawing.Size(200, 21);
             this.comboBox2.TabIndex = 8;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(156, 244);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(108, 20);
+            this.textBox1.Size = new System.Drawing.Size(200, 20);
             this.textBox1.TabIndex = 9;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(156, 106);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(108, 20);
+            this.textBox2.Size = new System.Drawing.Size(200, 20);
             this.textBox2.TabIndex = 10;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(156, 137);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(108, 20);
+            this.textBox3.Size = new System.Drawing.Size(200, 20);
             this.textBox3.TabIndex = 11;
             // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(156, 218);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(108, 20);
+            this.textBox4.Size = new System.Drawing.Size(200, 20);
             this.textBox4.TabIndex = 12;
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(156, 80);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(108, 20);
+            this.textBox5.Size = new System.Drawing.Size(200, 20);
             this.textBox5.TabIndex = 13;
             // 
             // btnCancelar
             // 
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnCancelar.Location = new System.Drawing.Point(489, 304);
+            this.btnCancelar.Location = new System.Drawing.Point(624, 304);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(84, 23);
             this.btnCancelar.TabIndex = 14;
             this.btnCancelar.Text = "Salir/Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // pbImagen
             // 
-            this.pbImagen.Location = new System.Drawing.Point(329, 106);
+            this.pbImagen.Location = new System.Drawing.Point(464, 106);
             this.pbImagen.Name = "pbImagen";
             this.pbImagen.Size = new System.Drawing.Size(167, 132);
             this.pbImagen.TabIndex = 15;
@@ -194,7 +195,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 345);
+            this.CancelButton = this.btnCancelar;
+            this.ClientSize = new System.Drawing.Size(750, 345);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.pbImagen);
             this.Controls.Add(this.btnCancelar);
@@ -212,8 +214,11 @@
             this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.lblCodigo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Carga de Datos";
+            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

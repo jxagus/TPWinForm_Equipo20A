@@ -137,6 +137,7 @@
             this.btnAgregar.TabIndex = 10;
             this.btnAgregar.Text = "Agregar nuevo";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnEliminar
             // 
@@ -176,6 +177,7 @@
             this.Controls.Add(this.tbBuscar);
             this.Controls.Add(this.dgvLista);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestor de articulos";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).EndInit();
