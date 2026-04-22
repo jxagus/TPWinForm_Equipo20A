@@ -21,12 +21,13 @@ namespace negocio
             {
                 datos.setearConsulta("SELECT A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
                              "M.Descripcion AS DescripcionMarca, " +
-                             "C.Descripcion AS DescripcionCategoria, " +
-                             "I.ImagenUrl " +
-                             "FROM ARTICULOS A, MARCAS M, CATEGORIAS C, IMAGENES I " +
+                             "C.Descripcion AS DescripcionCategoria " +
+                             "FROM ARTICULOS A, MARCAS M, CATEGORIAS C " +
                              "WHERE A.IdMarca = M.Id " +
-                             "AND A.IdCategoria = C.Id " +
-                             "AND A.Id = I.IdArticulo");
+                             "AND A.IdCategoria = C.Id ");
+
+                //Nota: Arregle la consulta para que no aparezcan repetidos los que tengan mas de una imagen pero los que tienen
+                //categoria inexistente no aparecen, falta arreglar eso
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
