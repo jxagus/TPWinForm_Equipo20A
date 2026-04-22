@@ -47,15 +47,23 @@ namespace TPWinForm_Equipo20A
         }
         private void ocultarColumnas()
         {
-            dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url
+            //dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url
             
             
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Form2 ventana = new Form2();
-            ventana.ShowDialog();
+            Form2 agregar = new Form2();
+            agregar.ShowDialog();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvLista.CurrentRow.DataBoundItem;
+            Form2 modificar = new Form2();
+            modificar.ShowDialog();
         }
     }
 }

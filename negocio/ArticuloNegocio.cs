@@ -38,7 +38,7 @@ namespace negocio
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]); 
 
-                    aux.ImagenUrl = (string)datos.Lector["ImagenUrl"]; //fijar
+                    //aux.ImagenUrl = (string)datos.Lector["ImagenUrl"]; //fijar
                     aux.Marca = new Marca();
                     aux.Marca.Descripcion = (string)datos.Lector["DescripcionMarca"];
 
@@ -59,6 +59,26 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void agregar(Articulo nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("insert into ARTICULOS values('" + nuevo.Codigo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', @idMarca, @idCategoria, 1)");
+                datos.setearParametro("@idMarca", nuevo.Marca.Id);
+                datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
-    //asdasd
 }

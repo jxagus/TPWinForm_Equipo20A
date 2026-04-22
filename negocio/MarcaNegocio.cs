@@ -1,30 +1,29 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using dominio;
 
 namespace negocio
 {
-    public class CategoriaNegocio
+    public class MarcaNegocio
     {
-        public List<Categoria> listar()
+        public List<Marca> listar()
         {
-            List<Categoria> lista = new List<Categoria>();
+            List<Marca> lista = new List<Marca>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("Select Id, Descripcion From Categorias");
+                datos.setearConsulta("Select Id, Descripcion From MARCAS");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Categoria aux = new Categoria();
+                    Marca aux = new Marca();
                     aux.Id = (int)datos.Lector["Id"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];  
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
 
                     lista.Add(aux);
                 }
