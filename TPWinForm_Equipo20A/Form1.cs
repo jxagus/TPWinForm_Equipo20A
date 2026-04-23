@@ -34,6 +34,11 @@ namespace TPWinForm_Equipo20A
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cargar();
+        }
+
+        private void cargar()
+        {
             ArticuloNegocio negocio = new ArticuloNegocio();
             dgvLista.DataSource = negocio.listar();
             ocultarColumnas();
@@ -47,6 +52,7 @@ namespace TPWinForm_Equipo20A
         }
         private void ocultarColumnas()
         {
+            dgvLista.Columns["Id"].Visible = false;
             //dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url
             
             
@@ -56,6 +62,7 @@ namespace TPWinForm_Equipo20A
         {
             Form2 agregar = new Form2();
             agregar.ShowDialog();
+            cargar();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -68,6 +75,7 @@ namespace TPWinForm_Equipo20A
 
             Form2 modificar = new Form2(seleccionado);
             modificar.ShowDialog();
+            cargar();
         }
     }
 }

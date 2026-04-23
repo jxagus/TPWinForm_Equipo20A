@@ -18,12 +18,16 @@ namespace TPWinForm_Equipo20A
         public Form2()
         {
             InitializeComponent();
+            Text = "Carga de datos";
+            btnAgrModif.Text = "Agregar";
         }
 
         public Form2(Articulo articulo)
         {
             InitializeComponent();
             this.articulo = articulo;
+            Text = "Edicion de datos";
+            btnAgrModif.Text = "Modificar";
         }
 
         private void lblTitulo_Click(object sender, EventArgs e)
@@ -81,27 +85,36 @@ namespace TPWinForm_Equipo20A
 
         private void btnAgrModif_Click(object sender, EventArgs e)
         {
-            Articulo nuevo = new Articulo();
-            ArticuloNegocio articulo = new ArticuloNegocio();
+            ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                nuevo.Codigo = txtCodigo.Text;
-                nuevo.Nombre = txtNombre.Text;
-                //nuevo.ImagenUrl = txtUrlImagen.Text;
-                nuevo.Imagenes.Clear(); // por si se entra en modificar en vez de agreagar
+                if(articulo ==  null)
+                    articulo = new Articulo();
+                articulo.Codigo = txtCodigo.Text;
+                articulo.Nombre = txtNombre.Text;
+                articulo.Imagenes.Clear();
                 foreach (var item in cboImagenVistaPrevia.Items)
                 {
                     Imagen aux = new Imagen();
                     aux.UrlImagen = item.ToString();
-                    nuevo.Imagenes.Add(aux);
+                    articulo.Imagenes.Add(aux);
                 }
-                nuevo.Categoria = (Categoria)cboCategoria.SelectedItem;
-                nuevo.Marca = (Marca)cboMarca.SelectedItem;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                nuevo.Descripcion = txtDescripcion.Text;
+                articulo.Categoria = (Categoria)cboCategoria.SelectedItem;
+                articulo.Marca = (Marca)cboMarca.SelectedItem;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
+                articulo.Descripcion = txtDescripcion.Text;
                 
-                articulo.agregar(nuevo);
-                MessageBox.Show("Articulo agregado con exito!");
+                if(articulo.Id == 0)
+                {
+                    negocio.agregar(articulo);
+                    MessageBox.Show("Articulo agregado con exito!");
+                }
+                else
+                {
+                    negocio.modificar(articulo);
+                    MessageBox.Show("Articulo modificado con exito!");
+                }
+
                 Close();
             }
             catch (Exception ex)

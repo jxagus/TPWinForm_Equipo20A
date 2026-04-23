@@ -87,13 +87,53 @@ namespace negocio
             }
             catch (Exception ex)
             {
-
+             
                 throw ex;
             }
             finally
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void modificar(Articulo modificar)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Desc, IdMarca = @IdMarca, IdCategoria = @IdCat, Precio = @Precio where Id = @id");
+                datos.setearParametro("@Codigo", modificar.Codigo);
+                datos.setearParametro("@Nombre", modificar.Nombre);
+                datos.setearParametro("@Desc", modificar.Descripcion);
+                datos.setearParametro("@IdMarca", modificar.Marca.Id);
+                datos.setearParametro("@IdCat", modificar.Categoria.Id);
+                datos.setearParametro("@Precio", modificar.Precio);
+                datos.setearParametro("@id", modificar.Id);
+                datos.ejecutarAccion();
+
+                datos.limpiarParametros();
+                datos.setearConsulta("delete from IMAGENES where IdArticulo = @idArt");
+                datos.setearParametro("@idArt", modificar.Id);
+                datos.ejecutarAccion();
+
+                foreach (Imagen img in modificar.Imagenes)
+                {
+                    datos.limpiarParametros();
+                    datos.setearConsulta("insert into IMAGENES (IdArticulo, ImagenUrl) values (@idArt, @urlImagen)");
+                    datos.setearParametro("@idArt", modificar.Id);
+                    datos.setearParametro("@urlImagen", img.UrlImagen);
+
+                    datos.ejecutarAccion();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally {  datos.cerrarConexion(); }
         }
     }
 }
