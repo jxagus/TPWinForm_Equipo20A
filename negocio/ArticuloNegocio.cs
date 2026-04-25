@@ -221,7 +221,7 @@ namespace negocio
                     case "Marca":
                         if (filtro.ToLower() == "Sin marca" || string.IsNullOrWhiteSpace(filtro))
                         {
-                            consulta += " AND C.id  is null";
+                            consulta += " AND M.id  is null";
                         }
                         else
                         {
