@@ -12,58 +12,130 @@ using negocio;
 
 namespace TPWinForm_Equipo20A
 {
+
     public partial class Form1 : Form
 
     {
         private List<Articulo> listaArticulo;
+        private Articulo articulo = null;
 
         public Form1()
         {
             InitializeComponent();
         }
 
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
+            ImagenNegocio img = new ImagenNegocio();
+            try
+            {
+                cboImagenVistaPrevia.DataSource = img.listar(listaArticulo[0].Id);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cargar();
-            cbCampo.Items.Add("Precio");
-            cbCampo.Items.Add("Nombre");
-            cbCampo.Items.Add("Categoria");
-            cbCampo.Items.Add("Marca");
-        }
+      
 
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-
-            listaArticulo = negocio.listar();
-            dgvLista.DataSource = listaArticulo;
-
-            if (listaArticulo.Count > 0 &&
-                listaArticulo[0].Imagenes != null &&
-                listaArticulo[0].Imagenes.Count > 0)
+            try
             {
-                pbImagen.Load(listaArticulo[0].Imagenes[0].UrlImagen);
-            }
+                listaArticulo = negocio.listar();
 
-            ocultarColumnas();
+                dgvLista.DataSource = listaArticulo;
+
+                ocultarColumnas();
+
+                if (listaArticulo != null && listaArticulo.Count > 0)
+                {
+                    if (listaArticulo[0].Imagenes != null && listaArticulo[0].Imagenes.Count > 0)
+                    {
+                        cargarImagen(listaArticulo[0].Imagenes[0].UrlImagen);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la carga: " + ex.ToString());
+            }
         }
+
         private void ocultarColumnas()
         {
-            dgvLista.Columns["Id"].Visible = false;
-            //dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url           
+            if (dgvLista.Columns["Imagenes"] != null) dgvLista.Columns["Imagenes"].Visible = false;
+            if (dgvLista.Columns["Id"] != null) dgvLista.Columns["Id"].Visible = false;
+
+            if (dgvLista.Columns["Marca"] != null) dgvLista.Columns["Marca"].Visible = false;
+            if (dgvLista.Columns["Categoria"] != null) dgvLista.Columns["Categoria"].Visible = false;
+
+            /*if (dgvLista.Columns["Precio"] != null)
+                dgvLista.Columns["Precio"].DefaultCellStyle.Format = "N3";*/
+        }
+        private void dgvLista_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvLista.CurrentRow == null)
+                return;
+
+            Articulo seleccionado = (Articulo)dgvLista.CurrentRow.DataBoundItem;
+
+            if (seleccionado != null)
+            {
+                cboImagenVistaPrevia.DataSource = null;
+
+                if (seleccionado.Imagenes != null && seleccionado.Imagenes.Count > 0)
+                {
+                    cboImagenVistaPrevia.DataSource = seleccionado.Imagenes;
+                    cboImagenVistaPrevia.DisplayMember = "UrlImagen";
+                }
+                else
+                {
+                    cargarImagen("");
+                }
+            }
         }
 
+        private void cboImagenVistaPrevia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Imagen seleccionada = cboImagenVistaPrevia.SelectedItem as Imagen;
+
+            if (seleccionada != null && !string.IsNullOrEmpty(seleccionada.UrlImagen))
+            {
+                cargarImagen(seleccionada.UrlImagen);
+            }
+            else
+            {
+                cargarImagen("");
+            }
+        }
+        private void cargarImagen(string url)
+        {
+            try
+            {
+                pbImagen.Load(url);
+            }
+            catch (Exception)
+            {
+                pbImagen.Load("https://img.ridingwarehouse.com/watermark/rs.php?path=-1.jpg&nw=455");
+            }
+        }
+
+      
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             Form2 agregar = new Form2();
             agregar.ShowDialog();
             cargar();
         }
-
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado;
@@ -172,6 +244,49 @@ namespace TPWinForm_Equipo20A
             {
 
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void dgvLista_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvLista.Columns[e.ColumnIndex].Name == "Precio" && e.Value != null)
+            {
+                if (e.Value is decimal precio)
+                {
+                    // Multiplicamos por 100 y vemos si queda resto
+                    if ((precio * 100) % 1 != 0)
+                    {
+                        // Tiene 3 o más decimales significativos
+                        e.Value = precio.ToString("C3");
+                    }
+                    else
+                    {
+                        // Es un precio estándar: usamos C2
+                        e.Value = precio.ToString("C2");
+                    }                   
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+        private void dgvLista_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvLista.Columns[e.ColumnIndex].Name == "Precio" && e.Value != null)
+            {
+                if (e.Value is decimal precio)
+                {
+                    // Multiplicamos por 100 y vemos si queda resto
+                    if ((precio * 100) % 1 != 0)
+                    {
+                        // Tiene 3 o más decimales significativos
+                        e.Value = precio.ToString("C3");
+                    }
+                    else
+                    {
+                        // Es un precio estándar: usamos C2
+                        e.Value = precio.ToString("C2");
+                    }
+                    e.FormattingApplied = true;
+                }
             }
         }
     }
