@@ -47,13 +47,14 @@ namespace TPWinForm_Equipo20A
         {
 
         }
-      
+
+
 
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
-            {
+            { 
                 listaArticulo = negocio.listar();
 
                 dgvLista.DataSource = listaArticulo;
@@ -133,13 +134,14 @@ namespace TPWinForm_Equipo20A
             }
         }
 
-      
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             Form2 agregar = new Form2();
             agregar.ShowDialog();
             cargar();
         }
+
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado;
@@ -180,11 +182,11 @@ namespace TPWinForm_Equipo20A
         private void btnBusquedaAvanzada_Click(object sender, EventArgs e)
         {
             
-            if (cbCampo.SelectedItem == null || cbCriterio.SelectedItem == null)
-            {
-                MessageBox.Show("Antes de realizar la busqueda, ingresar campo y criterio.");
-                return; 
-            }
+           // if (cbCampo.SelectedItem == null || cbCriterio.SelectedItem == null)
+           // {
+           //     MessageBox.Show("Antes de realizar la busqueda, ingresar campo y criterio.");
+           //     return; 
+           // }
 
             try
             {
@@ -268,27 +270,6 @@ namespace TPWinForm_Equipo20A
                         // Es un precio estándar: usamos C2
                         e.Value = precio.ToString("C2");
                     }                   
-                    e.FormattingApplied = true;
-                }
-            }
-        }
-        private void dgvLista_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dgvLista.Columns[e.ColumnIndex].Name == "Precio" && e.Value != null)
-            {
-                if (e.Value is decimal precio)
-                {
-                    // Multiplicamos por 100 y vemos si queda resto
-                    if ((precio * 100) % 1 != 0)
-                    {
-                        // Tiene 3 o más decimales significativos
-                        e.Value = precio.ToString("C3");
-                    }
-                    else
-                    {
-                        // Es un precio estándar: usamos C2
-                        e.Value = precio.ToString("C2");
-                    }
                     e.FormattingApplied = true;
                 }
             }

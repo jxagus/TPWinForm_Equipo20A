@@ -157,16 +157,17 @@ namespace negocio
         {
             List<Articulo> listaArticulo = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
+
             try
             {
-                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio," +
-                "(SELECT TOP 1 I.ImagenUrl FROM IMAGENES I WHERE I.IdArticulo = A.Id ORDER BY I.Id) AS ImagenUrl," +
-                "M.Descripcion AS DescripcionMarca," +
-                "C.Descripcion AS DescripcionCategoria," +
-                "M.Id AS IdMarca, C.Id AS IdCategoria " +
-                "FROM ARTICULOS A " +
-                "INNER JOIN MARCAS M ON A.IdMarca = M.Id " +
-                "INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id AND ";
+                //se realizo un cambio en la consulta y en datos.lector
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
+                    "M.Descripcion AS DescripcionMarca, " +
+                    "C.Descripcion AS DescripcionCategoria, " +
+                    "M.Id AS IdMarca, C.Id AS IdCategoria " +
+                    "FROM ARTICULOS A " +
+                    "LEFT JOIN MARCAS M ON A.IdMarca = M.Id " +
+                    "LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id WHERE 1=1 "; //obligamos a que la consulta sea siempre valida
 
                 switch (campo)
                 {
@@ -174,10 +175,10 @@ namespace negocio
                         switch (criterio)
                         {
                             case "Mayor a":
-                                consulta += "A.Precio > " + filtro;
+                                consulta += "AND A.Precio > " + filtro;
                                 break;
                             default:
-                                consulta += "A.Precio < " + filtro;
+                                consulta += "AND A.Precio < " + filtro;
                                 break;
 
                         }
@@ -186,42 +187,56 @@ namespace negocio
                         switch (criterio)
                         {
                             case "Comienza con":
-                                consulta += "Nombre like '" + filtro + "%' ";
+                                consulta += "AND Nombre like '" + filtro + "%' ";
                                 break;
                             case "Termina con":
-                                consulta += "Nombre like '%" + filtro + "' ";
+                                consulta += "AND Nombre like '%" + filtro + "' ";
                                 break;
                             default:
-                                consulta += "Nombre like '%" + filtro + "%' ";
+                                consulta += "AND Nombre like '%" + filtro + "%' ";
                                 break;
                         }
                         break;
                     case "Categoria":
-                        switch (criterio)
+                        if (filtro.ToLower() == "Sin categoría" || string.IsNullOrWhiteSpace(filtro))
                         {
-                            case "Comienza con":
-                                consulta += "C.Descripcion like '" + filtro + "%' ";
-                                break;
-                            case "Termina con":
-                                consulta += "C.Descripcion like '%" + filtro + "' ";
-                                break;
-                            default:
-                                consulta += "C.Descripcion like '%" + filtro + "%' ";
-                                break;
+                            consulta += " AND C.id  is null";
+                        }
+                        else
+                        {
+                            switch (criterio)
+                            {
+                                case "Comienza con":
+                                    consulta += "AND C.Descripcion like '" + filtro + "%' ";
+                                    break;
+                                case "Termina con":
+                                    consulta += "AND C.Descripcion like '%" + filtro + "' ";
+                                    break;
+                                default:
+                                    consulta += "AND C.Descripcion like '%" + filtro + "%' ";
+                                    break;   
+                            }
                         }
                         break;
                     case "Marca":
-                        switch (criterio)
+                        if (filtro.ToLower() == "Sin categoría" || string.IsNullOrWhiteSpace(filtro))
                         {
-                            case "Comienza con":
-                                consulta += "M.Descripcion like '" + filtro + "%' ";
-                                break;
-                            case "Termina con":
-                                consulta += "M.Descripcion like '%" + filtro + "' ";
-                                break;
-                            default:
-                                consulta += "M.Descripcion like '%" + filtro + "%' ";
-                                break;
+                            consulta += " AND C.id  is null";
+                        }
+                        else
+                        {
+                            switch (criterio)
+                            {
+                                case "Comienza con":
+                                    consulta += "AND M.Descripcion like '" + filtro + "%' ";
+                                    break;
+                                case "Termina con":
+                                    consulta += "AND M.Descripcion like '%" + filtro + "' ";
+                                    break;
+                                default:
+                                    consulta += "AND M.Descripcion like '%" + filtro + "%' ";
+                                    break;
+                            }
                         }
                         break;
 
@@ -231,29 +246,36 @@ namespace negocio
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]);
 
-                    aux.Imagenes = new List<Imagen>();
-
-                    if (!(datos.Lector["ImagenUrl"] is DBNull))
-                    {
-                        Imagen img = new Imagen();
-                        img.UrlImagen = datos.Lector["ImagenUrl"].ToString();
-
-                        aux.Imagenes.Add(img);
-                    }
                     aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = (string)datos.Lector["DescripcionMarca"];
+                    if (!(datos.Lector["IdMarca"] is DBNull))
+                    {
+                        aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                        aux.Marca.Descripcion = (string)datos.Lector["DescripcionMarca"];
+                    }
+                    else
+                    {
+                        aux.Marca.Descripcion = "Sin Marca";
+                    }
 
                     aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = (string)datos.Lector["DescripcionCategoria"];
+                    if (!(datos.Lector["IdCategoria"] is DBNull))
+                    {
+                        aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                        aux.Categoria.Descripcion = (string)datos.Lector["DescripcionCategoria"];
+                    }
+                    else
+                    {
+                        aux.Categoria.Descripcion = "Sin Categoría";
+                    }
+
+                    ImagenNegocio imgNegocio = new ImagenNegocio();
+                    aux.Imagenes = imgNegocio.listar(aux.Id);
 
                     listaArticulo.Add(aux);
                 }
