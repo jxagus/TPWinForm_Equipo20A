@@ -219,7 +219,7 @@ namespace negocio
                         }
                         break;
                     case "Marca":
-                        if (filtro.ToLower() == "Sin categoría" || string.IsNullOrWhiteSpace(filtro))
+                        if (filtro.ToLower() == "Sin marca" || string.IsNullOrWhiteSpace(filtro))
                         {
                             consulta += " AND C.id  is null";
                         }
