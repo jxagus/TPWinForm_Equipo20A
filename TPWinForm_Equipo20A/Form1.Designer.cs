@@ -31,12 +31,15 @@
             this.dgvLista = new System.Windows.Forms.DataGridView();
             this.tbBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
-            this.pbImagen = new System.Windows.Forms.GroupBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.cboImagenVistaPrevia = new System.Windows.Forms.ComboBox();
+            this.lblAgregado = new System.Windows.Forms.Label();
+            this.pbImagen = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvLista
@@ -65,15 +68,6 @@
             this.lblBuscar.Size = new System.Drawing.Size(43, 13);
             this.lblBuscar.TabIndex = 2;
             this.lblBuscar.Text = "Buscar:";
-            // 
-            // pbImagen
-            // 
-            this.pbImagen.Location = new System.Drawing.Point(693, 70);
-            this.pbImagen.Name = "pbImagen";
-            this.pbImagen.Size = new System.Drawing.Size(284, 203);
-            this.pbImagen.TabIndex = 7;
-            this.pbImagen.TabStop = false;
-            this.pbImagen.Text = "Imagen";
             // 
             // btnAgregar
             // 
@@ -114,17 +108,47 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
+            // cboImagenVistaPrevia
+            // 
+            this.cboImagenVistaPrevia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboImagenVistaPrevia.FormattingEnabled = true;
+            this.cboImagenVistaPrevia.Location = new System.Drawing.Point(775, 268);
+            this.cboImagenVistaPrevia.Name = "cboImagenVistaPrevia";
+            this.cboImagenVistaPrevia.Size = new System.Drawing.Size(128, 21);
+            this.cboImagenVistaPrevia.TabIndex = 20;
+            // 
+            // lblAgregado
+            // 
+            this.lblAgregado.AutoSize = true;
+            this.lblAgregado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregado.Location = new System.Drawing.Point(709, 271);
+            this.lblAgregado.Name = "lblAgregado";
+            this.lblAgregado.Size = new System.Drawing.Size(66, 13);
+            this.lblAgregado.TabIndex = 22;
+            this.lblAgregado.Text = "Vista Previa:";
+            // 
+            // pbImagen
+            // 
+            this.pbImagen.Location = new System.Drawing.Point(710, 70);
+            this.pbImagen.Name = "pbImagen";
+            this.pbImagen.Size = new System.Drawing.Size(222, 191);
+            this.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImagen.TabIndex = 21;
+            this.pbImagen.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(998, 370);
+            this.Controls.Add(this.cboImagenVistaPrevia);
+            this.Controls.Add(this.lblAgregado);
+            this.Controls.Add(this.pbImagen);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
-            this.Controls.Add(this.pbImagen);
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.tbBuscar);
             this.Controls.Add(this.dgvLista);
@@ -133,6 +157,7 @@
             this.Text = "Gestor de articulos";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,11 +168,13 @@
         private System.Windows.Forms.DataGridView dgvLista;
         private System.Windows.Forms.TextBox tbBuscar;
         private System.Windows.Forms.Label lblBuscar;
-        private System.Windows.Forms.GroupBox pbImagen;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.ComboBox cboImagenVistaPrevia;
+        private System.Windows.Forms.Label lblAgregado;
+        private System.Windows.Forms.PictureBox pbImagen;
     }
 }
 

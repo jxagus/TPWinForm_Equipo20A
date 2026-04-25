@@ -19,15 +19,23 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
+                /*datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
                              "M.Descripcion AS DescripcionMarca, " +
-                             "C.Descripcion AS DescripcionCategoria, " +"M.Id AS IdMarca, C.Id AS IdCategoria "+
+                             "C.Descripcion AS DescripcionCategoria, " +
+                             "M.Id AS IdMarca, C.Id AS IdCategoria "+
                              "FROM ARTICULOS A, MARCAS M, CATEGORIAS C " +
                              "WHERE A.IdMarca = M.Id " +
-                             "AND A.IdCategoria = C.Id ");
+                             "AND A.IdCategoria = C.Id ");*/
+                datos.setearConsulta(
+                "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio," +
+                "(SELECT TOP 1 I.ImagenUrl FROM IMAGENES I WHERE I.IdArticulo = A.Id ORDER BY I.Id) AS ImagenUrl," +
+                "M.Descripcion AS DescripcionMarca," +
+                "C.Descripcion AS DescripcionCategoria," +
+                "M.Id AS IdMarca, C.Id AS IdCategoria " +
+                "FROM ARTICULOS A " +
+                "INNER JOIN MARCAS M ON A.IdMarca = M.Id " +
+                "INNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id");
 
-                //Nota: Arregle la consulta para que no aparezcan repetidos los que tengan mas de una imagen pero los que tienen
-                //categoria inexistente no aparecen, falta arreglar eso
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -38,9 +46,17 @@ namespace negocio
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]); 
+                    aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]);
 
-                    //aux.ImagenUrl = (string)datos.Lector["ImagenUrl"]; //fijar
+                    aux.Imagenes = new List<Imagen>();
+
+                    if (!(datos.Lector["ImagenUrl"] is DBNull))
+                    {
+                        Imagen img = new Imagen();
+                        img.UrlImagen = datos.Lector["ImagenUrl"].ToString();
+
+                        aux.Imagenes.Add(img);
+                    }
                     aux.Marca = new Marca();
                     aux.Marca.Id = (int)datos.Lector["IdMarca"];
                     aux.Marca.Descripcion = (string)datos.Lector["DescripcionMarca"];
@@ -69,12 +85,12 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) " + "output inserted.id "+"values('" + nuevo.Codigo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', @idMarca, @idCategoria, @Precio)");
+                datos.setearConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) " + "output inserted.id " + "values('" + nuevo.Codigo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', @idMarca, @idCategoria, @Precio)");
                 datos.setearParametro("@idMarca", nuevo.Marca.Id);
                 datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
                 datos.setearParametro("@Precio", nuevo.Precio);
                 int idArticulo = datos.leerUltimoId();
-                foreach(Imagen img in nuevo.Imagenes)
+                foreach (Imagen img in nuevo.Imagenes)
                 {
                     datos.limpiarParametros();
                     datos.setearConsulta("insert into IMAGENES (IdArticulo, ImagenUrl) values (@idArt, @urlImagen)");
@@ -87,7 +103,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-             
+
                 throw ex;
             }
             finally
@@ -133,7 +149,7 @@ namespace negocio
 
                 throw ex;
             }
-            finally {  datos.cerrarConexion(); }
+            finally { datos.cerrarConexion(); }
         }
     }
 }

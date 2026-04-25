@@ -32,7 +32,6 @@ namespace TPWinForm_Equipo20A
 
         private void lblTitulo_Click(object sender, EventArgs e)
         {
-            //convertir en titulo "Modificar" o "Agregar" dependiendo del botón que se haya presionado en el form1
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -26,7 +26,6 @@ namespace TPWinForm_Equipo20A
         {
 
         }
-
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -39,22 +38,23 @@ namespace TPWinForm_Equipo20A
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            dgvLista.DataSource = negocio.listar();
-            ocultarColumnas();
 
-            //dgvLista.Columns["Codigo"].DisplayIndex = 0;    //primera posición
-            //dgvLista.Columns["Nombre"].DisplayIndex = 1;    //2da
-            //dgvLista.Columns["Marca"].DisplayIndex = 2;     //3era
-            //dgvLista.Columns["Categoria"].DisplayIndex = 3; //4ta
-            //dgvLista.Columns["Descripcion"].DisplayIndex = 4; //....X
-            //dgvLista.Columns["Precio"].DisplayIndex = 5;    //ultima
+            listaArticulo = negocio.listar();
+            dgvLista.DataSource = listaArticulo;
+
+            if (listaArticulo.Count > 0 &&
+                listaArticulo[0].Imagenes != null &&
+                listaArticulo[0].Imagenes.Count > 0)
+            {
+                pbImagen.Load(listaArticulo[0].Imagenes[0].UrlImagen);
+            }
+
+            ocultarColumnas();
         }
         private void ocultarColumnas()
         {
             dgvLista.Columns["Id"].Visible = false;
-            //dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url
-            
-            
+            //dgvLista.Columns["ImagenUrl"].Visible = false; //ocultamos la url           
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
