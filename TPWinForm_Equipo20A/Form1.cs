@@ -22,10 +22,6 @@ namespace TPWinForm_Equipo20A
             InitializeComponent();
         }
 
-        private void tbBuscar_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -77,10 +73,29 @@ namespace TPWinForm_Equipo20A
             cargar();
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
+        private void btnBorrarFiltro_Click(object sender, EventArgs e)
         {
-            Form3 filtrar = new Form3();
-            filtrar.ShowDialog();
+            cargar();
+        }
+
+        private void tbBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            string filtro = tbBuscar.Text;
+
+            if (filtro.Length >= 2)
+            {
+                listaFiltrada = listaArticulo.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()));
+            }
+            else
+            {
+                listaFiltrada = listaArticulo;
+            }
+
+
+            dgvLista.DataSource = null;
+            dgvLista.DataSource = listaFiltrada;
+            ocultarColumnas();
         }
     }
 }

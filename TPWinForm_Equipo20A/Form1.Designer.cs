@@ -34,7 +34,7 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
-            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnBorrarFiltro = new System.Windows.Forms.Button();
             this.cboImagenVistaPrevia = new System.Windows.Forms.ComboBox();
             this.lblAgregado = new System.Windows.Forms.Label();
             this.pbImagen = new System.Windows.Forms.PictureBox();
@@ -98,15 +98,15 @@
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // btnFiltrar
+            // btnBorrarFiltro
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(18, 285);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 13;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            this.btnBorrarFiltro.Location = new System.Drawing.Point(192, 36);
+            this.btnBorrarFiltro.Name = "btnBorrarFiltro";
+            this.btnBorrarFiltro.Size = new System.Drawing.Size(75, 23);
+            this.btnBorrarFiltro.TabIndex = 13;
+            this.btnBorrarFiltro.Text = "Borrar filtro";
+            this.btnBorrarFiltro.UseVisualStyleBackColor = true;
+            this.btnBorrarFiltro.Click += new System.EventHandler(this.btnBorrarFiltro_Click);
             // 
             // cboImagenVistaPrevia
             // 
@@ -145,7 +145,7 @@
             this.Controls.Add(this.cboImagenVistaPrevia);
             this.Controls.Add(this.lblAgregado);
             this.Controls.Add(this.pbImagen);
-            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.btnBorrarFiltro);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
@@ -171,7 +171,7 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnBorrarFiltro;
         private System.Windows.Forms.ComboBox cboImagenVistaPrevia;
         private System.Windows.Forms.Label lblAgregado;
         private System.Windows.Forms.PictureBox pbImagen;
