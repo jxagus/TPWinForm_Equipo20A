@@ -24,6 +24,7 @@ namespace TPWinForm_Equipo20A
             InitializeComponent();
         }
 
+<<<<<<< HEAD
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
@@ -37,6 +38,19 @@ namespace TPWinForm_Equipo20A
 
                 MessageBox.Show(ex.ToString());
             }
+=======
+        private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
+            cbCampo.Items.Add("Precio");
+            cbCampo.Items.Add("Nombre");
+            cbCampo.Items.Add("Categoria");
+            cbCampo.Items.Add("Marca");
+>>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
         }
 
         private void cargar()
@@ -142,10 +156,86 @@ namespace TPWinForm_Equipo20A
             modificar.ShowDialog();
             cargar();
         }
+<<<<<<< HEAD
         private void btnFiltrar_Click(object sender, EventArgs e)
+=======
+
+        private void btnBorrarFiltro_Click(object sender, EventArgs e)
+>>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
         {
-            Form3 filtrar = new Form3();
-            filtrar.ShowDialog();
+            cargar();
+        }
+
+
+        private void cbCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cbCampo.SelectedItem.ToString();
+            if (opcion == "Precio")
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Mayor a");
+                cbCriterio.Items.Add("Menor a");
+            }
+            else
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Comienza con");
+                cbCriterio.Items.Add("Termina con");
+                cbCriterio.Items.Add("Contiene");
+            }
+        }
+
+        private void btnBusquedaAvanzada_Click(object sender, EventArgs e)
+        {
+            
+            if (cbCampo.SelectedItem == null || cbCriterio.SelectedItem == null)
+            {
+                MessageBox.Show("Antes de realizar la busqueda, ingresar campo y criterio.");
+                return; 
+            }
+
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                string campo = cbCampo.SelectedItem.ToString();
+                string criterio = cbCriterio.SelectedItem.ToString();
+                string filtro = txtBusquedaAvanzada.Text;
+                dgvLista.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (listaArticulo == null) return;
+
+            try
+            {
+                string filtro = txtBuscar.Text;
+                List<Articulo> listaFiltrada;
+
+                if (filtro.Length >= 2)
+                {
+                    listaFiltrada = listaArticulo.FindAll(x => x.Nombre != null &&  x.Nombre.ToUpper().Contains(filtro.ToUpper()));
+                }
+                else
+                {
+
+                    listaFiltrada = listaArticulo;
+                }
+
+                dgvLista.DataSource = null;
+                dgvLista.DataSource = listaFiltrada;
+                ocultarColumnas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al filtrar: " + ex.Message);
+            }
         }
 
         private void dgvLista_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

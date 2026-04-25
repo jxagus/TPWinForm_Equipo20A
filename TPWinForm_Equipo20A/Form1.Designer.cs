@@ -29,15 +29,22 @@
         private void InitializeComponent()
         {
             this.dgvLista = new System.Windows.Forms.DataGridView();
-            this.tbBuscar = new System.Windows.Forms.TextBox();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
-            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnBorrarFiltro = new System.Windows.Forms.Button();
             this.cboImagenVistaPrevia = new System.Windows.Forms.ComboBox();
             this.lblAgregado = new System.Windows.Forms.Label();
             this.pbImagen = new System.Windows.Forms.PictureBox();
+            this.lblCriterio = new System.Windows.Forms.Label();
+            this.cbCriterio = new System.Windows.Forms.ComboBox();
+            this.lblBusquedaAvanzada = new System.Windows.Forms.Label();
+            this.txtBusquedaAvanzada = new System.Windows.Forms.TextBox();
+            this.btnBusquedaAvanzada = new System.Windows.Forms.Button();
+            this.lblCampo = new System.Windows.Forms.Label();
+            this.cbCampo = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
@@ -53,12 +60,20 @@
             this.dgvLista.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvLista_CellFormatting);
             this.dgvLista.SelectionChanged += new System.EventHandler(this.dgvLista_SelectionChanged);
             // 
-            // tbBuscar
+            // txtBuscar
             // 
+<<<<<<< HEAD
             this.tbBuscar.Location = new System.Drawing.Point(66, 38);
             this.tbBuscar.Name = "tbBuscar";
             this.tbBuscar.Size = new System.Drawing.Size(108, 20);
             this.tbBuscar.TabIndex = 1;
+=======
+            this.txtBuscar.Location = new System.Drawing.Point(66, 38);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(108, 20);
+            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+>>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
             // 
             // lblBuscar
             // 
@@ -98,15 +113,15 @@
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // btnFiltrar
+            // btnBorrarFiltro
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(18, 285);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 13;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            this.btnBorrarFiltro.Location = new System.Drawing.Point(192, 36);
+            this.btnBorrarFiltro.Name = "btnBorrarFiltro";
+            this.btnBorrarFiltro.Size = new System.Drawing.Size(75, 23);
+            this.btnBorrarFiltro.TabIndex = 13;
+            this.btnBorrarFiltro.Text = "Borrar filtro";
+            this.btnBorrarFiltro.UseVisualStyleBackColor = true;
+            this.btnBorrarFiltro.Click += new System.EventHandler(this.btnBorrarFiltro_Click);
             // 
             // cboImagenVistaPrevia
             // 
@@ -137,21 +152,95 @@
             this.pbImagen.TabIndex = 21;
             this.pbImagen.TabStop = false;
             // 
+            // lblCriterio
+            // 
+            this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Location = new System.Drawing.Point(218, 307);
+            this.lblCriterio.Name = "lblCriterio";
+            this.lblCriterio.Size = new System.Drawing.Size(45, 13);
+            this.lblCriterio.TabIndex = 23;
+            this.lblCriterio.Text = "Criterio: ";
+            // 
+            // cbCriterio
+            // 
+            this.cbCriterio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCriterio.FormattingEnabled = true;
+            this.cbCriterio.Location = new System.Drawing.Point(269, 303);
+            this.cbCriterio.Name = "cbCriterio";
+            this.cbCriterio.Size = new System.Drawing.Size(121, 21);
+            this.cbCriterio.TabIndex = 24;
+            // 
+            // lblBusquedaAvanzada
+            // 
+            this.lblBusquedaAvanzada.AutoSize = true;
+            this.lblBusquedaAvanzada.Location = new System.Drawing.Point(413, 307);
+            this.lblBusquedaAvanzada.Name = "lblBusquedaAvanzada";
+            this.lblBusquedaAvanzada.Size = new System.Drawing.Size(35, 13);
+            this.lblBusquedaAvanzada.TabIndex = 25;
+            this.lblBusquedaAvanzada.Text = "Filtro: ";
+            // 
+            // txtBusquedaAvanzada
+            // 
+            this.txtBusquedaAvanzada.Location = new System.Drawing.Point(454, 304);
+            this.txtBusquedaAvanzada.Name = "txtBusquedaAvanzada";
+            this.txtBusquedaAvanzada.Size = new System.Drawing.Size(121, 20);
+            this.txtBusquedaAvanzada.TabIndex = 26;
+            // 
+            // btnBusquedaAvanzada
+            // 
+            this.btnBusquedaAvanzada.Location = new System.Drawing.Point(589, 292);
+            this.btnBusquedaAvanzada.Name = "btnBusquedaAvanzada";
+            this.btnBusquedaAvanzada.Size = new System.Drawing.Size(100, 40);
+            this.btnBusquedaAvanzada.TabIndex = 27;
+            this.btnBusquedaAvanzada.Text = "Busqueda avanzada";
+            this.btnBusquedaAvanzada.UseVisualStyleBackColor = true;
+            this.btnBusquedaAvanzada.Click += new System.EventHandler(this.btnBusquedaAvanzada_Click);
+            // 
+            // lblCampo
+            // 
+            this.lblCampo.AutoSize = true;
+            this.lblCampo.Location = new System.Drawing.Point(17, 306);
+            this.lblCampo.Name = "lblCampo";
+            this.lblCampo.Size = new System.Drawing.Size(46, 13);
+            this.lblCampo.TabIndex = 28;
+            this.lblCampo.Text = "Campo: ";
+            // 
+            // cbCampo
+            // 
+            this.cbCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCampo.FormattingEnabled = true;
+            this.cbCampo.Location = new System.Drawing.Point(69, 304);
+            this.cbCampo.Name = "cbCampo";
+            this.cbCampo.Size = new System.Drawing.Size(121, 21);
+            this.cbCampo.TabIndex = 29;
+            this.cbCampo.SelectedIndexChanged += new System.EventHandler(this.cbCampo_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
+<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(998, 339);
+=======
+            this.ClientSize = new System.Drawing.Size(998, 370);
+            this.Controls.Add(this.cbCampo);
+            this.Controls.Add(this.lblCampo);
+            this.Controls.Add(this.btnBusquedaAvanzada);
+            this.Controls.Add(this.txtBusquedaAvanzada);
+            this.Controls.Add(this.lblBusquedaAvanzada);
+            this.Controls.Add(this.cbCriterio);
+            this.Controls.Add(this.lblCriterio);
+>>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
             this.Controls.Add(this.cboImagenVistaPrevia);
             this.Controls.Add(this.lblAgregado);
             this.Controls.Add(this.pbImagen);
-            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.btnBorrarFiltro);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblBuscar);
-            this.Controls.Add(this.tbBuscar);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dgvLista);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -167,15 +256,22 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvLista;
-        private System.Windows.Forms.TextBox tbBuscar;
+        private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnBorrarFiltro;
         private System.Windows.Forms.ComboBox cboImagenVistaPrevia;
         private System.Windows.Forms.Label lblAgregado;
         private System.Windows.Forms.PictureBox pbImagen;
+        private System.Windows.Forms.Label lblCriterio;
+        private System.Windows.Forms.ComboBox cbCriterio;
+        private System.Windows.Forms.Label lblBusquedaAvanzada;
+        private System.Windows.Forms.TextBox txtBusquedaAvanzada;
+        private System.Windows.Forms.Button btnBusquedaAvanzada;
+        private System.Windows.Forms.Label lblCampo;
+        private System.Windows.Forms.ComboBox cbCampo;
     }
 }
 
