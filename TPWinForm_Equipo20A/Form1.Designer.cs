@@ -62,18 +62,12 @@
             // 
             // txtBuscar
             // 
-<<<<<<< HEAD
-            this.tbBuscar.Location = new System.Drawing.Point(66, 38);
-            this.tbBuscar.Name = "tbBuscar";
-            this.tbBuscar.Size = new System.Drawing.Size(108, 20);
-            this.tbBuscar.TabIndex = 1;
-=======
+
             this.txtBuscar.Location = new System.Drawing.Point(66, 38);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(108, 20);
             this.txtBuscar.TabIndex = 1;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
->>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
             // 
             // lblBuscar
             // 
@@ -220,9 +214,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
-<<<<<<< HEAD
-            this.ClientSize = new System.Drawing.Size(998, 339);
-=======
+
             this.ClientSize = new System.Drawing.Size(998, 370);
             this.Controls.Add(this.cbCampo);
             this.Controls.Add(this.lblCampo);
@@ -231,7 +223,6 @@
             this.Controls.Add(this.lblBusquedaAvanzada);
             this.Controls.Add(this.cbCriterio);
             this.Controls.Add(this.lblCriterio);
->>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
             this.Controls.Add(this.cboImagenVistaPrevia);
             this.Controls.Add(this.lblAgregado);
             this.Controls.Add(this.pbImagen);

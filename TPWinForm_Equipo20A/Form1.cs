@@ -24,7 +24,7 @@ namespace TPWinForm_Equipo20A
             InitializeComponent();
         }
 
-<<<<<<< HEAD
+
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
@@ -38,20 +38,12 @@ namespace TPWinForm_Equipo20A
 
                 MessageBox.Show(ex.ToString());
             }
-=======
+        }
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cargar();
-            cbCampo.Items.Add("Precio");
-            cbCampo.Items.Add("Nombre");
-            cbCampo.Items.Add("Categoria");
-            cbCampo.Items.Add("Marca");
->>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
-        }
+      
 
         private void cargar()
         {
@@ -156,12 +148,8 @@ namespace TPWinForm_Equipo20A
             modificar.ShowDialog();
             cargar();
         }
-<<<<<<< HEAD
-        private void btnFiltrar_Click(object sender, EventArgs e)
-=======
 
         private void btnBorrarFiltro_Click(object sender, EventArgs e)
->>>>>>> bf88c3aecdd316c349f24cccf8874f8bb8c88228
         {
             cargar();
         }
