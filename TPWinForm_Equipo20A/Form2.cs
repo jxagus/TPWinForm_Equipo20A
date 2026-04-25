@@ -270,7 +270,6 @@ namespace TPWinForm_Equipo20A
             }
             return false;
         }
-
         bool validarPrecio()
         {
             if (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio < 0)
@@ -279,8 +278,6 @@ namespace TPWinForm_Equipo20A
             }
             return true;
         }
-
-
         private bool hayError()
         {
             bool error = false;
