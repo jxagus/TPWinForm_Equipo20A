@@ -181,12 +181,19 @@ namespace TPWinForm_Equipo20A
 
         private void btnBusquedaAvanzada_Click(object sender, EventArgs e)
         {
-            
-           // if (cbCampo.SelectedItem == null || cbCriterio.SelectedItem == null)
-           // {
-           //     MessageBox.Show("Antes de realizar la busqueda, ingresar campo y criterio.");
-           //     return; 
-           // }
+            if (cbCampo.SelectedItem == null || cbCriterio.SelectedItem == null)
+            {
+                MessageBox.Show("Antes de realizar la busqueda, ingresar campo y criterio.");
+                return; 
+            }
+            if (cbCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (!decimal.TryParse(txtBusquedaAvanzada.Text, out decimal valor))
+                {
+                    MessageBox.Show("Para el campo Precio, ingresá solo números");
+                    return;
+                }
+            }
 
             try
             {
@@ -238,10 +245,15 @@ namespace TPWinForm_Equipo20A
             Articulo seleccionado;
             try
             {
-                DialogResult repuesta = MessageBox.Show("Confirmar el DELETE del articulo", "Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                if (dgvLista.CurrentRow == null)
+                {
+                    MessageBox.Show("Seleccioná un artículo primero");
+                    return;
+                }
+                seleccionado = (Articulo)dgvLista.CurrentRow.DataBoundItem;
+                DialogResult repuesta = MessageBox.Show("Confirmar el DELETE de: " + seleccionado.Nombre, "Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
                 if (repuesta == DialogResult.Yes)
                 {
-                    seleccionado = (Articulo)dgvLista.CurrentRow.DataBoundItem;
                     negocio.Eliminar(seleccionado.Id);
                     cargar();
                 }
